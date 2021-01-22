@@ -28,12 +28,11 @@ create table cinema (
 
 create table row (
   id SERIAL,
+  row_number TINYINT UNSIGNED NOT NULL,
   cinema_id BIGINT UNSIGNED NOT NULL,
 
   PRIMARY KEY(id),
-  FOREIGN KEY(cinema_id)
-    REFERENCES cinema(id)
-    ON DELETE CASCADE
+  FOREIGN KEY(cinema_id) REFERENCES cinema(id) ON DELETE CASCADE
 );
 
 create table seat (
@@ -42,9 +41,7 @@ create table seat (
   seat_number TINYINT UNSIGNED NOT NULL,
 
   PRIMARY KEY(id),
-  FOREIGN KEY(row_id)
-    REFERENCES row(id)
-    ON DELETE CASCADE
+  FOREIGN KEY(row_id) REFERENCES row(id) ON DELETE CASCADE
 );
 
 create table employee (
@@ -64,12 +61,8 @@ create table schedule (
   ticket_price DECIMAL(5,2) NOT NULL,
 
   PRIMARY KEY(id),
-  FOREIGN KEY(film_id)
-    REFERENCES film(id)
-    ON DELETE CASCADE,
-  FOREIGN KEY(cinema_id)
-    REFERENCES cinema(id)
-    ON DELETE CASCADE
+  FOREIGN KEY(film_id) REFERENCES film(id) ON DELETE CASCADE,
+  FOREIGN KEY(cinema_id) REFERENCES cinema(id) ON DELETE CASCADE
 );
 
 create table work_schedule (
@@ -78,10 +71,18 @@ create table work_schedule (
   schedule_id BIGINT UNSIGNED NOT NULL,
 
   PRIMARY KEY(id),
-  FOREIGN KEY(employee_id)
-    REFERENCES employee(id)
-    ON DELETE CASCADE,
-  FOREIGN KEY(schedule_id)
-    REFERENCES schedule(id)
-    ON DELETE CASCADE
+  FOREIGN KEY(employee_id) REFERENCES employee(id) ON DELETE CASCADE,
+  FOREIGN KEY(schedule_id) REFERENCES schedule(id) ON DELETE CASCADE
+);
+
+create table reservation (
+  id SERIAL,
+  seat_id BIGINT UNSIGNED NOT NULL,
+  customer_id BIGINT UNSIGNED NOT NULL,
+  schedule_id BIGINT UNSIGNED NOT NULL,
+
+  PRIMARY KEY(id),
+  FOREIGN KEY(seat_id) REFERENCES seat(id) ON DELETE CASCADE,
+  FOREIGN KEY(customer_id) REFERENCES customer(id) ON DELETE CASCADE,
+  FOREIGN KEY(schedule_id) REFERENCES schedule(id) ON DELETE CASCADE
 );
