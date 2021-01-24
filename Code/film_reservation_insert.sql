@@ -411,10 +411,10 @@ insert into seat (row_id, seat_number) values
   (33, 7),
   (33, 8),
   (33, 9),
-  (33, 10;
+  (33, 10);
 
 insert into employee (first_name, last_name) values
-  ('Robert', 'Anderspn'),
+  ('Robert', 'Anderson'),
   ('Grigory', 'Pavlov'),
   ('Daniel', 'Di Benedetto');
 
